@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /k/
+Sitemap: https://marfapro.ru/sitemap.xml
