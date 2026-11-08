@@ -61,7 +61,7 @@ p { margin: 0; }
   .top .btn { margin-left: auto; }
   .subnav { display: flex; gap: 6px; overflow-x: auto; padding: 0 var(--gutter-r) 10px var(--gutter); scrollbar-width: none; }
   .subnav::-webkit-scrollbar { display: none; }
-  .subnav a { flex: none; color: var(--ink-muted); text-decoration: none; font-size: 14px; padding: 5px 12px; border: 1px solid var(--ink-line); border-radius: 999px; }
+  .subnav a { flex: none; color: var(--ink-muted); text-decoration: none; font-size: 14px; padding: 5px 11px; border: 1px solid var(--ink-line); border-radius: 999px; }
   .subnav a[aria-current="page"] { color: var(--ink-fg); border-color: var(--ink-muted); }
 }
 
@@ -148,7 +148,7 @@ p { margin: 0; }
 .cats .wrap::-webkit-scrollbar { display: none; }
 .cats a { flex: none; text-decoration: none; padding: 7px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); font-size: 14.5px; }
 .cats a.on { background: var(--fg); color: var(--bg); border-color: var(--fg); }
-@media (max-width: 56rem) { .cats { top: calc(104px + env(safe-area-inset-top, 0px)); } }
+@media (max-width: 56rem) { .cats { top: calc(108px + env(safe-area-inset-top, 0px)); } }
 .menu-cat { padding-block: 40px 8px; scroll-margin-top: 9rem; }
 .menu-cat h2 { font-size: clamp(30px, 4vw, 42px); }
 .menu-cat .note { color: var(--muted); margin-top: 4px; }
@@ -313,6 +313,25 @@ p { margin: 0; }
 .theme-btn .i-sun { display: none; }
 .theme-btn.is-dark .i-sun { display: block; } .theme-btn.is-dark .i-moon { display: none; }
 @media (max-width: 56rem) { .top .theme-btn { margin-left: auto; } .top .theme-btn ~ .btn { margin-left: 0; } }
+/* Кнопка звонка — только на телефоне (на компьютере номер виден в шапке) */
+.top .call-btn { display: none; text-decoration: none; }
+@media (max-width: 56rem) {
+  .top .call-btn { display: inline-grid; margin-left: auto; }
+  .top .call-btn ~ .theme-btn { margin-left: 0; }
+  /* Шапка уезжает при прокрутке вниз; полоса разделов меню поднимается следом */
+  .top { transition: transform .25s ease; }
+  .top.is-hidden { transform: translateY(-100%); }
+  .cats { transition: top .25s ease; }
+  .top.is-hidden ~ main .cats { top: env(safe-area-inset-top, 0px); }
+}
+@media (prefers-reduced-motion: reduce) { .top, .cats { transition: none; } }
+/* Узкие телефоны (360 и меньше): логотип, звонок, тема и бронь помещаются в одну строку */
+@media (max-width: 24rem) {
+  .logo img { height: 26px; }
+  .top .wrap { gap: 8px; }
+  .top .btn { padding: 0 12px; }
+}
+@media (max-width: 21rem) { .top #theme-btn { display: none; } .hero .wrap .actions { grid-template-columns: 1fr; } }
 .b-short { display: none; }
 @media (max-width: 26rem) {
   .top .wrap { gap: 10px; }
@@ -357,7 +376,7 @@ p { margin: 0; }
 .section-head { margin-bottom: 18px; }
 .section-head h2 { font-size: clamp(30px, 3.6vw, 44px); margin-top: 4px; }
 @media (max-width: 56rem) {
-  .hero .wrap { grid-template-columns: 1fr; gap: 18px; padding-block: 20px 22px; }
+  .hero .wrap { grid-template-columns: minmax(0, 1fr); gap: 18px; padding-block: 20px 22px; }
   .hero h1 { font-size: clamp(34px, 9vw, 44px); }
   .hero .lead { font-size: 16px; }
   .hero .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 16px; }
